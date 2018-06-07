@@ -24,13 +24,24 @@ describe Bookmark do
 
       expect(Bookmark.all).to include bookmark
     end
-  end
 
-  describe '.create' do
     it 'does not create a new bookmark if the URL is invalid' do
       bookmark = Bookmark.create(url: 'not a valid URL')
 
       expect(Bookmark.all).not_to include bookmark
+    end
+  end
+
+  describe '.delete' do
+    it 'deletes a bookmark' do
+      bookmark = Bookmark.create(url: "http://makersacademy.com", title: 'MakersAcademy')
+      current_id = bookmark.id
+      Bookmark.delete(current_id)
+
+      bookmarks = Bookmark.all
+      urls = bookmarks.map(&:url)
+
+      expect(urls).not_to include "http://makersacademy.com"
     end
   end
 
