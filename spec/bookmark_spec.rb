@@ -36,8 +36,8 @@ describe Bookmark do
 
   describe '#==' do
     it 'two bookmarks are equal if their ids match' do
-      bookmark_1 = Bookmark.new(1, url: 'http://testbookmark.com')
-      bookmark_2 = Bookmark.new(1, url: 'http://testbookmark.com')
+      bookmark_1 = Bookmark.new(1, 'http://testbookmark.com', title: 'Test Bookmark')
+      bookmark_2 = Bookmark.new(1, 'http://testbookmark.com', title: 'Test Bookmark')
 
       expect(bookmark_1).to eq (bookmark_2)
     end

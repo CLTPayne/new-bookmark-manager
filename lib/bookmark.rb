@@ -1,11 +1,12 @@
 require 'pg'
 
 class Bookmark
-  attr_reader :id, :url
+  attr_reader :id, :url, :title
 
-  def initialize(id, url)
+  def initialize(id, url, title)
     @id  = id
     @url = url
+    @title = title
   end
 
   def ==(other)
@@ -20,7 +21,7 @@ class Bookmark
     end
 
     result = connection.exec("SELECT * FROM bookmarks")
-    result.map { |bookmark| Bookmark.new(bookmark['id'], bookmark['url']) }
+    result.map { |bookmark| Bookmark.new(bookmark['id'], bookmark['url'], bookmark['title']) }
   end
 
   def self.create(options)
@@ -32,8 +33,8 @@ class Bookmark
 
     return false unless is_url?(options[:url])
      #connection.exec("INSERT INTO bookmarks (url) VALUES('#{options[:url]}')")
-    result = connection.exec("INSERT INTO bookmarks (url) VALUES('#{options[:url]}') RETURNING id, url")
-    Bookmark.new(result.first['id'], result.first['url'])
+    result = connection.exec("INSERT INTO bookmarks (url, title) VALUES('#{options[:url]}', '#{options[:title]}') RETURNING id, url, title")
+    Bookmark.new(result.first['id'], result.first['url'], result.first['title'])
   end
 
   def self.is_url?(url)
