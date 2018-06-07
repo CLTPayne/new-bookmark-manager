@@ -23,7 +23,14 @@ class BookmarkManager < Sinatra::Base
 
   post '/bookmarks' do
     flash[:notice] = "You must enter a valid URL" unless Bookmark.create(url: params['url'], title: params['title'])
+    p params
     redirect '/bookmarks'
+  end
+
+  delete '/bookmarks/:id/delete' do
+    connection = PG.connect(dbname: 'bookmark_manager_test')
+    connection.exec("DELETE FROM bookmarks WHERE id = #{params['id']}")
+    redirect '/'
   end
 
   run! if app_file ==$0
