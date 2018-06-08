@@ -45,6 +45,23 @@ describe Bookmark do
     end
   end
 
+  describe '.edit' do
+    it 'edits a bookmark' do
+      bookmark = Bookmark.create(url: "http://makersacademy.com", title: 'MakersAcademy')
+      current_id = bookmark.id
+      Bookmark.edit(current_id, "http://makerschool.com", "MakersSchool")
+
+      bookmarks = Bookmark.all
+      urls = bookmarks.map(&:url)
+      titles = bookmarks.map(&:title)
+
+      expect(urls).not_to include "http://makersacademy.com"
+      expect(titles).not_to include "MakersAcademy"
+      expect(urls).to include "http://makerschool.com"
+      expect(titles).to include "MakersSchool"
+    end
+  end
+
   describe '#==' do
     it 'two bookmarks are equal if their ids match' do
       bookmark_1 = Bookmark.new(1, 'http://testbookmark.com', title: 'Test Bookmark')

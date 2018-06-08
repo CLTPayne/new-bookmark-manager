@@ -33,11 +33,13 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks/:id/edit' do
+    @id = params[:id]
     erb :"bookmarks/edit"
   end
 
   put '/bookmarks/:id/edit' do
-    # SQL command to edit the entry by id
+    @id = params[:id]
+    flash[:notice] = "You must enter a valid URL" unless Bookmark.edit(params[:id], params[:url], params[:title])
     redirect '/bookmarks'
   end
 

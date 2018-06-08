@@ -1,5 +1,9 @@
+<%=flash[:notice]%>
+
 <h3>Please make your bookmark fab!</h3>
-<form action="/bookmarks" method="post">
+<form action="/bookmarks/<%= @id %>/edit" method="post">
+  <input type='hidden' name='_method' value='PUT'/>
+  <input type='hidden' name='id' value='<%= @id %>'>
   <p>Title:</p>
   <input type="text" name="title" />
   <p>Url:</p>
