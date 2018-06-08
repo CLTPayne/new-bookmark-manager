@@ -10,7 +10,7 @@ class Bookmark
   end
 
   def ==(other)
-    @id = other.id
+    @id == other.id
   end
 
   def self.all

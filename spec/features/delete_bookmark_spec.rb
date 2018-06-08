@@ -12,9 +12,10 @@ feature 'Deleting bookmarks' do
       click_button 'Smash!'
     end
 
-    path = "/bookmarks/#{bookmark.id}"
-    expect(current_path).to eq path
+    expect(current_path).to eq "/bookmarks"
     expect(page).not_to have_content 'MakersAcademy'
+    expect(page).to have_content 'Destroy'
+    expect(page).to have_content 'Google'
 
   end
 end
