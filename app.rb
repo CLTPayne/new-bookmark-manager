@@ -6,6 +6,7 @@ require 'uri'
 
 class BookmarkManager < Sinatra::Base
   enable :sessions
+  use Rack::MethodOverride
   register Sinatra::Flash
 
   get '/' do
@@ -23,13 +24,12 @@ class BookmarkManager < Sinatra::Base
 
   post '/bookmarks' do
     flash[:notice] = "You must enter a valid URL" unless Bookmark.create(url: params['url'], title: params['title'])
-    p params
     redirect '/bookmarks'
   end
 
-  delete '/bookmarks/:id/delete' do
+  delete '/bookmarks/:id' do
     Bookmark.delete(params['id'])
-    redirect '/'
+    redirect '/bookmarks'
   end
 
   run! if app_file ==$0
