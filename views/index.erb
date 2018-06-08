@@ -11,6 +11,10 @@
         <input type='hidden' name='id' value='<%= bookmark.id %>'>
         <input type='submit' value = "Smash!"/>
       </form>
+      <form action="/bookmarks/<%= bookmark.id %>/edit" method="get">
+        <input type='hidden' name='id' value='<%= bookmark.id %>'>
+        <input type='submit' value = "Fabit!"/>
+      </form>
     </li>
   <% end %>
 </ul>
